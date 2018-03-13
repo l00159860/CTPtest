@@ -1,0 +1,11 @@
+
+#centos7.1.1503
+#gcc4.8
+
+yum update -y nss curl libcurl
+git clone。。。
+cd 。。。
+cp ./CTP_API/*.so /usr/lib/
+ldconfig
+g++ -c CustomMdSpi.cpp TickToKlineHelper.cpp CustomTradeSpi.cpp StrategyTrade.cpp main.cpp -std=c++11 -lc
+g++ -L./CTP_API  -lthostmduserapi -lthosttraderapi *.o -o a.out -v
