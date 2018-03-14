@@ -6,6 +6,15 @@ yum install -y gcc glibc-devel make ncurses-devel openssl-devel autoconf
 yum install -y socat
 
 cd /usr/local/src/
+
+#wget http://erlang.org/download/otp_src_19.3.tar.gz
+#tar zxvf otp_src_19.3.tar.gz
+#cd otp_src_19.3
+#./configure 
+#make
+#make install
+
+
 wget https://github.com/rabbitmq/erlang-rpm/releases/download/v19.3.6.5/erlang-19.3.6.5-1.el7.centos.x86_64.rpm 
 rpm -i erlang-19.3.6.5-1.el7.centos.x86_64.rpm
 
