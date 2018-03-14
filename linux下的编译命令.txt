@@ -2,10 +2,40 @@
 #centos7.1.1503
 #gcc4.8
 
+yum install -y gcc glibc-devel make ncurses-devel openssl-devel autoconf
+yum install -y socat
+
+cd /usr/local/src/
+wget https://github.com/rabbitmq/erlang-rpm/releases/download/v19.3.6.5/erlang-19.3.6.5-1.el7.centos.x86_64.rpm 
+rpm -i erlang-19.3.6.5-1.el7.centos.x86_64.rpm
+
+wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.4/rabbitmq-server-3.7.4-1.el7.noarch.rpm 
+rpm -i rabbitmq-server-3.7.4-1.el7.noarch.rpm
+
+cd /usr/local/src/
+wget https://github.com/alanxz/rabbitmq-c/archive/v0.8.0.tar.gz
+tar zxvf v0.8.0.tar.gz
+cd rabbitmq-c-0.8.0
+autoreconf -i
+./configure
+make
+make install
+touch /etc/ld.so.conf.d/99local.conf
+echo "/usr/local/lib" > /etc/ld.so.conf.d/99local.conf
+ldconfig
+
+#for git
 yum update -y nss curl libcurl
-git clone。。。
-cd 。。。
+
+
+cd /usr/local/src/
+git clone https://github.com/l00159860/CTPtest.git rtptest
+cd rtptest/src
 cp ./CTP_API/*.so /usr/lib/
 ldconfig
 g++ -c CustomMdSpi.cpp TickToKlineHelper.cpp CustomTradeSpi.cpp StrategyTrade.cpp main.cpp -std=c++11 -lc
-g++ -L./CTP_API  -lthostmduserapi -lthosttraderapi *.o -o a.out -v
+g++ -L./CTP_API  -lthostmduserapi -lthosttraderapi -L/usr/local/lib -lrabbitmq  *.o -o a.out -v
+
+
+
+
